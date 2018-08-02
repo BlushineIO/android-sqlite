@@ -1,2 +1,2 @@
-# android-utils
-Various utilities for Android
+# Android SQLite helper utils
+Sqlite helper utils for Android apps
