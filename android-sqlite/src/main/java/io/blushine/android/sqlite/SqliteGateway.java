@@ -201,11 +201,11 @@ private enum ExecuteTypes {
 }
 
 private static class SqlExecute extends SqliteGateway {
-	private String mTable = null;
-	private ContentValues mContentValues = null;
-	private String mSql = null;
-	private String mWhereClause = null;
-	private ExecuteTypes mExecuteType = null;
+	private String mTable;
+	private ContentValues mContentValues;
+	private String mSql;
+	private String mWhereClause;
+	private ExecuteTypes mExecuteType;
 	
 	SqlExecute(ExecuteTypes executeType, String table, ContentValues contentValues, String whereClause, String sql) {
 		mTable = table;
