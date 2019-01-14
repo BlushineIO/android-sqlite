@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+//apply plugin: 'kotlin-android'
 
 group = 'io.blushine.android.sqlite'
 version = '0.1.0-SNAPSHOT'
@@ -14,6 +15,9 @@ android {
     compileSdkVersion targetSdkVersionVal
     buildToolsVersion buildToolsVersionVal
 
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
     defaultConfig {
         minSdkVersion minSdkVersionVal
         targetSdkVersion targetSdkVersionVal
@@ -33,32 +37,6 @@ android {
     }
 }
 
-task sourceJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    destinationDir = file("../javadoc/")
-    failOnError false
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourceJar
-    archives javadocJar
-}
-
-configurations {
-    deployerJars
-    provided
-}
-
 dependencies {
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersionVal"
 }

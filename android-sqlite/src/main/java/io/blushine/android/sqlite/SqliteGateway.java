@@ -32,6 +32,28 @@ public static synchronized void setSqlite(SQLiteOpenHelper sqliteOpenHelper) {
 }
 
 /**
+ * Begin a transaction
+ */
+protected void beginTransaction() {
+	mSqlite.getWritableDatabase().beginTransaction();
+}
+
+/**
+ * Sets a transaction as successful
+ */
+protected void setTransactionSuccessful() {
+	mSqlite.getWritableDatabase().setTransactionSuccessful();
+}
+
+/**
+ * End a transaction. To commit call {@link #setTransactionSuccessful()} before {@link #endTransaction()}.
+ * Changes will be rolled back if {@link #setTransactionSuccessful()} wasn't called
+ */
+protected void endTransaction() {
+	mSqlite.getWritableDatabase().endTransaction();
+}
+
+/**
  * Convenience method for deleting rows in the database.
  * @param table the table to delete from
  * @param whereClause the optional WHERE clause to apply when deleting. Passing null will delete all
@@ -179,11 +201,11 @@ private enum ExecuteTypes {
 }
 
 private static class SqlExecute extends SqliteGateway {
-	private String mTable = null;
-	private ContentValues mContentValues = null;
-	private String mSql = null;
-	private String mWhereClause = null;
-	private ExecuteTypes mExecuteType = null;
+	private String mTable;
+	private ContentValues mContentValues;
+	private String mSql;
+	private String mWhereClause;
+	private ExecuteTypes mExecuteType;
 	
 	SqlExecute(ExecuteTypes executeType, String table, ContentValues contentValues, String whereClause, String sql) {
 		mTable = table;
